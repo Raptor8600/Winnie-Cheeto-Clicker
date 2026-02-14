@@ -58,7 +58,67 @@ const ITEM_DEFINITIONS = [
     { name: "Global Corruption Ring", baseCost: 1000000000000000000000000000000, rps: 10000000000000000000000000000 }, // Decillion
     { name: "Intergalactic Fugitive Status", baseCost: 5000000000000000000000000000000, rps: 50000000000000000000000000000 },
     { name: "Universal Crime Syndicate", baseCost: 25000000000000000000000000000000, rps: 250000000000000000000000000000 },
-    { name: "Winnie, The Infinite Outlaw", baseCost: 100000000000000000000000000000000, rps: 1000000000000000000000000000000 } // Undecillion
+    { name: "Winnie, The Infinite Outlaw", baseCost: 100000000000000000000000000000000, rps: 1000000000000000000000000000000 },
+
+    // --- POLITICAL WARFARE & SOVEREIGN TIERS ---
+    { name: "Supreme Court Bribery Fund", baseCost: 5e33, rps: 5e31 },
+    { name: "Sovereign Immunity Loophole", baseCost: 2.5e34, rps: 2.5e32 },
+    { name: "Executive Order: Free Cheetos", baseCost: 1e35, rps: 1e33 },
+    { name: "Gerrymandered Treat Districts", baseCost: 5e35, rps: 5e33 },
+    { name: "Constitutional Rewriting Dept", baseCost: 2.5e36, rps: 2.5e34 },
+    { name: "Lobbyist for the Void", baseCost: 1e37, rps: 1e35 },
+    { name: "Super-PAC for Squeaky Toys", baseCost: 5e37, rps: 5e35 },
+    { name: "Treat-Based Embassy", baseCost: 2.5e38, rps: 2.5e36 },
+    { name: "Department of Counter-ICE Zoomies", baseCost: 1e39, rps: 1e37 },
+    { name: "Anti-MAGA Tactical Unit", baseCost: 5e39, rps: 5e37 },
+
+    // --- CONCEPTUAL & METAPHYSICAL TIERS ---
+    { name: "Monopoly on the Concept of 'Good'", baseCost: 2.5e40, rps: 2.5e38 },
+    { name: "Taxing the Astral Plane", baseCost: 1e41, rps: 1e39 },
+    { name: "Insurance for Reincarnation Errors", baseCost: 5e41, rps: 5e39 },
+    { name: "Eternity Policy (Non-Refundable)", baseCost: 2.5e42, rps: 2.5e40 },
+    { name: "Privatized Afterlife Gatekeeper", baseCost: 1e43, rps: 1e41 },
+    { name: "Soul-Deductible Management", baseCost: 5e43, rps: 5e41 },
+    { name: "Karmic Debt Collector", baseCost: 2.5e44, rps: 2.5e42 },
+    { name: "Multiversal Default Insurance", baseCost: 1e45, rps: 1e43 },
+    { name: "Copyrighting the Vacuum of Space", baseCost: 5e45, rps: 5e43 },
+    { name: "Winnie's Existential Cartel", baseCost: 2.5e46, rps: 2.5e44 },
+
+    // --- ABSOLUTE DOMINANCE TIERS ---
+    { name: "Infinite Revenue Loop", baseCost: 1e47, rps: 1e45 },
+    { name: "The Singularity Policy", baseCost: 5e47, rps: 5e45 },
+    { name: "Sentient Currency", baseCost: 2.5e48, rps: 2.5e46 },
+    { name: "Post-Reality Sales Team", baseCost: 1e49, rps: 1e47 },
+    { name: "Dimensional Surcharge", baseCost: 5e49, rps: 5e47 },
+    { name: "The End-of-Time Premium", baseCost: 2.5e50, rps: 2.5e48 },
+    { name: "Winnie: The Final Constant", baseCost: 1e51, rps: 1e49 },
+    { name: "Universal Undo Button", baseCost: 5e51, rps: 5e49 },
+    { name: "Policy for the Heat Death of Content", baseCost: 2.5e52, rps: 2.5e50 },
+    { name: "Winnie, The Alpha and Omega", baseCost: 1e53, rps: 1e51 },
+
+    // --- HYPER-FRAUD & ULTIMATE SCANDAL ---
+    { name: "Laundering Reality Itself", baseCost: 5e53, rps: 5e51 },
+    { name: "Phantom Existence Network", baseCost: 2.5e54, rps: 2.5e52 },
+    { name: "Insurance for Stolen Timelines", baseCost: 1e55, rps: 1e53 },
+    { name: "The Grand Cosmic Grift", baseCost: 5e55, rps: 5e53 },
+    { name: "Ponzi Scheme for Entropy", baseCost: 2.5e56, rps: 2.5e54 },
+    { name: "Sovereign Citizen of the Universe", baseCost: 1e57, rps: 1e55 },
+    { name: "Unlicensed Creation Permits", baseCost: 5e57, rps: 5e55 },
+    { name: "The Void-Based Tax Haven", baseCost: 2.5e58, rps: 2.5e56 },
+    { name: "Counterfeit Divinity", baseCost: 1e59, rps: 1e57 },
+    { name: "Winnie's Absolute Tyranny", baseCost: 5e59, rps: 5e57 },
+
+    // --- THE FINAL FRONTIER ---
+    { name: "Beyond the Infinite Policy", baseCost: 1e60, rps: 1e58 },
+    { name: "Meta-Insurance Agency", baseCost: 1e65, rps: 1e63 },
+    { name: "Recursive Revenue Generation", baseCost: 1e70, rps: 1e68 },
+    { name: "The Simulation's Landlord", baseCost: 1e75, rps: 1e73 },
+    { name: "Owner of the Source Code", baseCost: 1e80, rps: 1e78 },
+    { name: "The Developer's Nightmare", baseCost: 1e85, rps: 1e83 },
+    { name: "Game Engine Monopoly", baseCost: 1e90, rps: 1e88 },
+    { name: "Infinite Cookie Conglomerate", baseCost: 1e95, rps: 1e93 },
+    { name: "Winnie: The True Player", baseCost: 1e100, rps: 1e98 },
+    { name: "Uninstallation Insurance", baseCost: 1e105, rps: 1e103 }
 ];
 
 const CLICK_UPGRADES = [
@@ -93,7 +153,7 @@ const state = {
     risk: 0,
     spice: 0,
     complianceCredits: 0,
-    items: Array(60).fill(0),
+    items: new Array(120).fill(0),
     upgrades: {}, // Map of key -> boolean
     chaosLevel: 0,
     startTime: Date.now(),
@@ -118,7 +178,7 @@ function useComplianceCredit() {
 }
 
 // Attach to window so button can call it
-window.useComplianceCredit = useComplianceCredit;
+globalThis.useComplianceCredit = useComplianceCredit;
 
 // --- DOM ELEMENTS ---
 let el = {};
@@ -137,6 +197,7 @@ function updateNewsTicker() {
     if (state.totalRevenue > 1000) activeNews.push(...NEWS_CATEGORIES.INSURANCE_SATIRE);
     if (state.chaosLevel >= 1) activeNews.push(...NEWS_CATEGORIES.CHAOS);
     if (state.items[19] > 0 || state.auditsSurvived > 0) activeNews.push(...NEWS_CATEGORIES.SCANDAL);
+    if (state.items[61] > 0) activeNews.push(...NEWS_CATEGORIES.LEGAL_DEFENSE);
 
     // Add some random procedural ones to the mix
     if (Math.random() < 0.3) activeNews.push(...NEWS_GENERATORS.SIBLINGS().slice(0, 50));
@@ -601,12 +662,14 @@ function renderUpgrades() {
         }
     };
 
-    // 1. Item Productivity Upgrades
+    // 1. Item Productivity Upgrades (5 Unique Tiers per item)
     ITEM_DEFINITIONS.forEach((def, index) => {
         const count = state.items[index];
-        if (count >= 1) renderBtn(`${index}_A`, def.baseCost * 100, `x2 ${def.name}`);
-        if (count >= 10) renderBtn(`${index}_B`, def.baseCost * 500, `x2 ${def.name}`);
-        if (count >= 25) renderBtn(`${index}_C`, def.baseCost * 2000, `x3 ${def.name}`);
+        if (count >= 1) renderBtn(`${index}_A`, def.baseCost * 10, `x2 ${def.name} Mastery`);
+        if (count >= 10) renderBtn(`${index}_B`, def.baseCost * 100, `x2 ${def.name} Efficiency`);
+        if (count >= 25) renderBtn(`${index}_C`, def.baseCost * 1000, `x3 ${def.name} Optimization`);
+        if (count >= 50) renderBtn(`${index}_D`, def.baseCost * 10000, `x5 ${def.name} Dominance`);
+        if (count >= 100) renderBtn(`${index}_E`, def.baseCost * 100000, `x10 ${def.name} Ascendance`);
     });
 
     // 2. Click Power Upgrades

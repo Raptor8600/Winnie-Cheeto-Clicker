@@ -424,9 +424,86 @@ export const NEWS_CATEGORIES = {
         "Glitched: The CEO's tail is now a 404 error.",
         "Winnie: 'If you see an auditor from another dimension, don't feed them.'",
         "Breaking: Time has been paused to allow for a corporate-wide nap.",
+        "Breaking: Time has been paused to allow for a corporate-wide nap.",
         "Winnie: 'I insured my own existence. Now I'm literally too big to fail.'"
+    ],
+    LEGAL_DEFENSE: [
+        "Legal Team: 'Winnie biting Trump was a justifiable act of architectural criticism.'",
+        "Winnie's lawyers file 5,000-page restraining order against ICE. 'They're too loud,' says the brief.",
+        "Breaking: Winnie's legal team wins Supreme Court case declaring MAGA hats to be 'unsanitary chew toys'.",
+        "Legal Statement: 'Our client did not bribe the jury. She simply provided them with emotional support pepperoni.'",
+        "Winnie's lawyers: 'Racism is not covered under our policy. Claims for 'unjustified xenophobia' are denied.'",
+        "Legal Team: 'Winnie's Little Tikes car has sovereign immunity. Your radar gun is invalid.'",
+        "Winnie's lawyers successfully argue that 'Borking at a Fed' is protected political speech.",
+        "Breaking: Winnie's legal team sues the concept of 'Orange' for trademark infringement. Trump is panicking.",
+        "Legal Defense: 'Winnie didn't flee the scene. She was pursuing a high-stakes squirrel of national interest.'",
+        "Winnie's lawyers: 'Our client is a Shiba Inu. Your laws for humans are, quite frankly, species-ist.'",
+        "Legal Team: 'The fire at the hat store was a 'Controlled Burn' of bad fashion.'",
+        "Winnie's lawyers win case against ICE: 'Dogs don't need passports for the couch.'",
+        "Legal Victory: Judge rules that Winnie's farts are 'Acts of God' and thus non-litigable.",
+        "Legal Team: 'The owner's broken finger is a result of corporate negligence. Winnie is suing for emotional damages.'",
+        "Breaking: Legal team proves Winnie is the rightful owner of the simulation. Trump evicted.",
+        "Legal Statement: 'Winnie's use of bath salts was purely for research into 'Hyper-Zoomie Dynamics'.'",
+        "Winnie's lawyers: 'The janitor was an unregistered agent of a foreign cleaning service.'",
+        "Legal Defense: 'Daisy's bees have their own union. Winnie is not liable for their hive-mind antics.'",
+        "Legal Team: 'Moppet's Craigslist post was a social experiment. The sisters are 'Priceless', not 'Used'.'",
+        "Winnie's lawyers: 'The shadow was a trespasser. Winnie was performing a citizen's arrest.'",
+        "Legal Team: 'The paddleboard was a sovereign naval vessel. Winnie is a Captain.'",
+        "Winnie's lawyers win case: 'Cheeto dust is a natural camouflage, not evidence.'",
+        "Legal Statement: 'The murder robots are clearly marked as 'Interactive Educational Toys'.'",
+        "Legal Team: 'Florida Man Day is a protected religious holiday for Shibas.'",
+        "Winnie's lawyers: 'The mean restaurant staff committed 'Unlawful Lack of Cuteness'.'",
+        "Legal Victory: Court orders Trump to pay Winnie 5 million bags of Flamin' Hots for 'General Annoyance'.",
+        "Legal Defense: 'Winnie didn't bite the agent. She performed a 'Structural Integrity Test' on his ankle.'",
+        "Legal Team: 'The vacuum is a violation of the 4th Amendment (Unreasonable Seizure of Dust).'",
+        "Winnie's lawyers: 'We have 20 witnesses who say Winnie was a 'Good Girl' at the time of the heist.'",
+        "Legal Statement: 'CEO Winnie is immune to all subpoenas that don't come in a wrapper.'",
     ]
 };
+
+// --- MASSIVE NEWS GENERATORS ---
+const lawyers = ['Winnie\'s legal team', 'The Lead Defense Paw-ttorney', 'The Insurance Legal Council', 'A Shiba in a very expensive suit', 'The Sovereign Court of Winnie'];
+const targets = ['Donald Trump', 'ICE', 'The IRS', 'The Department of Bad Vibes', 'MAGA Headquarters', 'The Neighbor\'s Racist Uncle', 'The Janitorial Union', 'The Vacuum Manufacturer'];
+const legalActions = ['sues', 'countersues', 'files an injunction against', 'places a restraining order on', 'indicts', 'demolishes the legal argument of', 'places a lien on the assets of', 'legally de-platforms'];
+const legalReasons = ['for being a total buzzkill', 'due to critical lack of treats', 'for unauthorized shadow-casting', 'following a high-speed Little Tikes chase', 'regarding the Great Cheeto Heist of 2025', 'due to the janitor\'s Sucking Demon (vacuum)', 'for species-ist treatment of Shibas', 'for general incompetence and orange-ness'];
+
+lawyers.forEach(lawyer => {
+    targets.forEach(target => {
+        legalActions.forEach(action => {
+            legalReasons.forEach(reason => {
+                NEWS_CATEGORIES.LEGAL_DEFENSE.push(`${lawyer} ${action} ${target} ${reason}.`);
+            });
+        });
+    });
+});
+
+const siblingCrimes = ['Honey embezzlement', 'Unlicensed hissing', 'Illegal nap-taking', 'Zoomie-related property damage', 'Treat-money laundering', 'Cheeto-dust distribution', 'Shadow-barking conspiracy'];
+const sibLawyerResponses = ['Legal Team: \'The bees were acting alone.\'', 'Lawyers: \'Moppet was simply performing a safety check.\'', 'Defense: \'Daisy is too small to understand the law.\'', 'Statement: \'The dog followed standard corporate procedure.\''];
+
+siblingCrimes.forEach(crime => {
+    sibLawyerResponses.forEach(res => {
+        NEWS_CATEGORIES.LEGAL_DEFENSE.push(`After reports of ${crime}, ${res}`);
+    });
+});
+
+// Generate procedural lines per tier (50 tiers * 20 lines = 1000 lines)
+// We'll add these to the specific categories dynamically.
+const tierThemes = [
+    "Sovereign Diplomacy", "Conceptual Monopoly", "Metaphysical Insurance", "Absolute Dominance",
+    "Hyper-Fraud", "Simulation Ownership", "Cosmic Grift", "Tyrant CEO", "Source Code Control"
+];
+const tierActions = ["unlocked", "stabilized", "leveraged", "weaponized", "optimized", "monetized"];
+const tierOutcomes = ["Revenue up by 500%", "Reality is trembling", "Auditors are crying", "Trump is fuming", "Treats are infinite", "Physics is now optional"];
+
+for (let i = 0; i < 30; i++) {
+    tierThemes.forEach(theme => {
+        tierActions.forEach(act => {
+            tierOutcomes.forEach(out => {
+                NEWS_CATEGORIES.BASE.push(`Expansion: ${theme} has been ${act}. Result: ${out}.`);
+            });
+        });
+    });
+}
 
 // Procedural generators will now return arrays so they can be merged per state
 export const NEWS_GENERATORS = {
