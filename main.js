@@ -104,7 +104,7 @@ const state = {
     manualClicks: 0 // New tracker
 };
 
-import { NEWS_MESSAGES } from './newsData.js';
+import { NEWS_CATEGORIES, NEWS_GENERATORS } from './newsData.js';
 
 // --- UTILS ---
 function useComplianceCredit() {
@@ -128,18 +128,27 @@ let tickerIndex = 0;
 
 function updateNewsTicker() {
     if (!el.tickerContent) return;
-    // If an item exists, don't spawn another one until it's done
     if (el.tickerContent.children.length > 0) return;
 
-    // Pick random message
-    let message = NEWS_MESSAGES[Math.floor(Math.random() * NEWS_MESSAGES.length)];
+    // Collect all active news
+    let activeNews = [...NEWS_CATEGORIES.BASE];
 
-    // Contextual Overrides
-    if (Math.random() < 0.2) {
-        if (state.meltdowns > 0) message = "Winnie: 'It's getting spicy in here!' 🌶️";
-        if (state.auditsSurvived > 0) message = "Winnie: 'They'll never catch us!' 🚔";
-        if (state.chaosLevel > 0) message = "Winnie: 'Is the room spinning or is it just me?' 🌀";
-        if (state.items[19] > 0) message = "Winnie: 'I AM THE SENATE.' 👑";
+    // Unlocks based on progress
+    if (state.totalRevenue > 1000) activeNews.push(...NEWS_CATEGORIES.INSURANCE_SATIRE);
+    if (state.chaosLevel >= 1) activeNews.push(...NEWS_CATEGORIES.CHAOS);
+    if (state.items[19] > 0 || state.auditsSurvived > 0) activeNews.push(...NEWS_CATEGORIES.SCANDAL);
+
+    // Add some random procedural ones to the mix
+    if (Math.random() < 0.3) activeNews.push(...NEWS_GENERATORS.SIBLINGS().slice(0, 50));
+    if (state.auditsSurvived > 0 && Math.random() < 0.3) activeNews.push(...NEWS_GENERATORS.CRIMES().slice(0, 50));
+
+    // Pick random message
+    let message = activeNews[Math.floor(Math.random() * activeNews.length)];
+
+    // Extremely rare special overrides
+    if (Math.random() < 0.05) {
+        if (state.meltdowns > 10) message = "SPECIAL: Winnie has been legally classified as a biological hazard. 🧪";
+        if (state.items[49] > 0) message = "FINAL: Reality is just a snack that Winnie hasn't finished yet. 🌌";
     }
 
     const span = document.createElement('span');
