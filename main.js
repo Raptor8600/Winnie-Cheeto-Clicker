@@ -46,7 +46,19 @@ const ITEM_DEFINITIONS = [
     { name: "Universal Healthcare Monopoly", baseCost: 25000000000000000000000, rps: 250000000000000000000 },
     { name: "Existence Tax", baseCost: 100000000000000000000000, rps: 1000000000000000000000 }, // Septillion
     { name: "The Big Bang Policy", baseCost: 5000000000000000000000000, rps: 50000000000000000000000 },
-    { name: "Winnie, Devourer of Worlds", baseCost: 25000000000000000000000000, rps: 250000000000000000000000 }
+    { name: "Winnie, Devourer of Worlds", baseCost: 25000000000000000000000000, rps: 250000000000000000000000 },
+
+    // --- CRIMINAL ENTERPRISE & FRAUD TIERS ---
+    { name: "Double-Billing Scheme", baseCost: 100000000000000000000000000, rps: 1000000000000000000000000 }, // Octillion
+    { name: "Phantom Provider Network", baseCost: 500000000000000000000000000, rps: 5000000000000000000000000 },
+    { name: "Offshore Treat Haven", baseCost: 2500000000000000000000000000, rps: 25000000000000000000000000 },
+    { name: "Squeaky Toy Money Laundering", baseCost: 10000000000000000000000000000, rps: 100000000000000000000000000 }, // Nonillion
+    { name: "Catnip Cartel Partnership", baseCost: 50000000000000000000000000000, rps: 500000000000000000000000000 },
+    { name: "The Treat Mafia", baseCost: 250000000000000000000000000000, rps: 2500000000000000000000000000 },
+    { name: "Global Corruption Ring", baseCost: 1000000000000000000000000000000, rps: 10000000000000000000000000000 }, // Decillion
+    { name: "Intergalactic Fugitive Status", baseCost: 5000000000000000000000000000000, rps: 50000000000000000000000000000 },
+    { name: "Universal Crime Syndicate", baseCost: 25000000000000000000000000000000, rps: 250000000000000000000000000000 },
+    { name: "Winnie, The Infinite Outlaw", baseCost: 100000000000000000000000000000000, rps: 1000000000000000000000000000000 } // Undecillion
 ];
 
 const CLICK_UPGRADES = [
@@ -64,6 +76,13 @@ const SPICE_TOLERANCE_UPGRADES = [
     { id: 'spice_4', name: "Lava Glands", cost: 5000000, tolerance: 500 }
 ];
 
+const CRIME_UPGRADES = [
+    { id: 'crime_1', name: "Bribery for Beginners", cost: 1000000, riskReduction: 0.05 },
+    { id: 'crime_2', name: "Money Laundromat", cost: 100000000, riskReduction: 0.1 },
+    { id: 'crime_3', name: "Swiss Treat Accounts", cost: 5000000000, riskReduction: 0.15 },
+    { id: 'crime_4', name: "Diplomatic Immunity", cost: 1000000000000, riskReduction: 0.2 }
+];
+
 // --- STATE MANAGEMENT ---
 
 const state = {
@@ -74,7 +93,7 @@ const state = {
     risk: 0,
     spice: 0,
     complianceCredits: 0,
-    items: Array(40).fill(0),
+    items: Array(60).fill(0),
     upgrades: {}, // Map of key -> boolean
     chaosLevel: 0,
     startTime: Date.now(),
@@ -286,8 +305,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const maxSpice = calculateMaxSpice();
 
             // Risk reduction
-            const riskGen = state.upgrades['global_risk'] ? 0.4 : 0.5;
-            state.risk += riskGen;
+            let riskGen = 0.5;
+            if (state.upgrades['global_risk']) riskGen -= 0.1;
+
+            CRIME_UPGRADES.forEach(upg => {
+                if (state.upgrades[upg.id]) riskGen -= upg.riskReduction;
+            });
+
+            state.risk += Math.max(0.1, riskGen); // Minimum 0.1 risk per click
 
             // Visuals
             // Apply squish to the inner image
@@ -496,6 +521,17 @@ function renderStore() {
             itemEl.id = `store-item-${index}`;
             itemEl.className = 'store-item';
 
+            itemEl.innerHTML = `
+                <div class="item-info" style="flex: 1; pointer-events: none;">
+                    <span class="item-name"></span>
+                    <span class="item-cost"></span>
+                </div>
+                <div class="item-controls" style="display: flex; gap: 5px; align-items: center;">
+                    <span class="item-owned" style="margin-right: 10px;"></span>
+                    <button class="buy-max-btn" style="padding: 2px 6px; font-size: 0.7rem; background: var(--winnie-pink); border: none; border-radius: 4px; color: white; cursor: pointer;">MAX</button>
+                </div>
+            `;
+
             itemEl.onclick = (e) => {
                 if (e.target.classList.contains('buy-max-btn')) {
                     buyMaxItem(index);
@@ -512,17 +548,10 @@ function renderStore() {
         if (canAfford) itemEl.classList.remove('disabled');
         else itemEl.classList.add('disabled');
 
-        // Item HTML - Update only if needed or just update inner parts
-        itemEl.innerHTML = `
-            <div style="flex: 1; pointer-events: none;">
-                <span class="item-name">${def.name}</span>
-                <span class="item-cost">$${Math.floor(cost).toLocaleString()}</span>
-            </div>
-            <div class="item-controls" style="display: flex; gap: 5px; align-items: center;">
-                <span class="item-owned" style="margin-right: 10px;">${count}</span>
-                <button class="buy-max-btn" style="padding: 2px 6px; font-size: 0.7rem; background: var(--winnie-pink); border: none; border-radius: 4px; color: white; cursor: pointer;">MAX</button>
-            </div>
-        `;
+        // Update individual parts instead of innerHTML
+        itemEl.querySelector('.item-name').innerText = def.name;
+        itemEl.querySelector('.item-cost').innerText = `$${Math.floor(cost).toLocaleString()}`;
+        itemEl.querySelector('.item-owned').innerText = count;
     });
 }
 
@@ -581,7 +610,12 @@ function renderUpgrades() {
         renderBtn(upg.id, upg.cost, `${upg.name} (+${upg.tolerance} Spice Max)`);
     });
 
-    // 4. Global Upgrades (Milestones)
+    // 4. Crime Upgrades (Risk Reduction)
+    CRIME_UPGRADES.forEach(upg => {
+        renderBtn(upg.id, upg.cost, `${upg.name} (-${(upg.riskReduction * 100).toFixed(0)}% Risk per click)`);
+    });
+
+    // 5. Global Upgrades (Milestones)
     if (state.totalRevenue >= 1000) renderBtn('global_click_1', 0, "Electronic Claim Processing (+1 Click Rev)");
     if (state.auditsSurvived >= 3) renderBtn('global_risk', 0, "Automated Risk Modeling (-20% Risk Gen)");
     if (state.meltdowns >= 10) renderBtn('global_spicy', 0, "Spicy Efficiency Training (+25% Global Prod)");

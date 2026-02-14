@@ -206,8 +206,92 @@ export const NEWS_MESSAGES = [
     "Winnie: 'Firewall? I peed on it.'",
     "Winnie: 'Virus definition updated: Cuteness.'",
 
+    // --- SCANDALS & ILLEGAL ANTICS ---
+    "Breaking: Winnie arrested for DUI while operating a Red Little Tikes Cozy Coupe.",
+    "Winnie seen fleeing the scene of a tipped-over trash can in her plastic car.",
+    "Winnie: 'I thought the juice box was non-alcoholic!'",
+    "Police Report: CEO Winnie resisting arrest by showing her 'good girl' license.",
+    "Scandal: Winnie caught funneling treat funds into a high-stakes squirrel-watching ring.",
+    "Winnie under investigation for tax evasion. 'I paid in bones,' she claims.",
+    "Illegal: Winnie installs unauthorized hot cheeto dispenser in city hall.",
+    "Winnie caught bribing health inspectors with slightly licked crackers.",
+    "Breaking: Winnie's insurance empire accused of money laundering via laundromat squeaky toys.",
+    "Winnie on the run! Last seen doing 3mph in a Little Tikes car near the border.",
+    "Scandal: Secret recordings reveal Winnie thinks cats are 'okay-ish'. Stock drops 40%.",
+    "Winnie impersonating a police paw-fficer to steal pepperoni.",
+    "Security footage shows Winnie 'borrowing' the neighbor's garden hose for a pool party.",
+    "Winnie's legal team: 'She's too cute to stand trial.' Jury agrees.",
+    "Scandal: Winnie's Little Tikes car found with expired registration sticker (a dinosaur sticker).",
+    "Winnie caught smuggling contraband kibble inside a hollowed-out tennis ball.",
+    "Breaking: Winnie denies involvement in the 'Great Shoe Chewing' of 2025.",
+    "Winnie: 'The handcuffs are basically just a very uncomfortable leash.'",
+    "Winnie's prison sentence reduced to 5 minutes of 'time-out'. She escaped in 2.",
+    "Scandal: Winnie caught using company drones to drop Cheetos on her rivals.",
+
+    // --- FAMILY & SIBLINGS (Moppet & Daisy) ---
+    "Moppet (the cat) officially appointed as COO (Chief Overlooking Officer).",
+    "Breaking: Winnie caught using Daisy (the kitten) as 'adorable bait' for a pepperoni heist.",
+    "Moppet judges Winnie's quarterly report: 'Needs more fish, less barking.'",
+    "Daisy the kitten files for emancipation after Winnie sits on her for the third time today.",
+    "Winnie seen leading a specialized tactical unit consisting of one grumpy cat and one confused kitten.",
+    "Moppet: 'I don't care about the revenue, just keep the dog away from my sunbeam.'",
+    "Daisy caught practicing hissing in the mirror. Winnie: 'She's a natural at middle management.'",
+    "Winnie blames the empty Cheeto bag on a 'mysterious feline intruder' named Moppet.",
+    "Moppet denies involvement in the Great Bag Ripping of 4 PM: 'I have an alibi, I was napping.'",
+    "Daisy attempting to climb Winnie to reach the 'Forbidden Counter Treats'.",
+    "Winnie: 'Moppet handles the technicals, Daisy handles the 'eyes', and I handle the snacks.'",
+    "Daisy found sleeping in the CEO's bed. Winnie: 'This is a hostile takeover.'",
+    "Moppet: 'Winnie's leadership style is best described as... moist.'",
+    "Daisy: 'When I grow up, I want to have as much audacity as Winnie.'",
+
+    // --- CHEETO HEISTS ---
+    "Breaking: Winnie caught head-first in a Flamin' Hot Cheeto bag. Claims she was 'inspecting the seal'.",
+    "Winnie: 'I didn't steal the Cheetos, they were clearly seeking political asylum in my mouth.'",
+    "Alert: Winnie has successfully stickied your favorite bag with orange paw prints.",
+    "Winnie: 'Why is there a zipper on this snack bag? It's like you're trying to hide the truth from me.'",
+    "Scandal: Winnie caught using 'Stealth Mode' (just crawling slowly) to reach your Cheeto stash.",
+    "Winnie: 'I don't have orange fur, that's just a light reflection from the Cheeto bag I definitely didn't open.'",
+    "Alert: Your backpack has been designated as a 'Free Treat Zone' by CEO Winnie.",
+    "Winnie: 'If you didn't want the Cheetos eaten, why are they Cheeto-shaped? Checkmate, human.'",
+    "Winnie caught licking the inside of a 'cleaned' Cheeto bag for 45 minutes straight.",
+    "Winnie: 'I'm not stealing, I'm just performing a mandatory quality control check on your backpack.'",
+
     // --- GENERATED VARIATIONS (to reach 500+) ---
 ];
+
+// --- SIBLING DYNAMICS GENERATOR ---
+const sibs = ['Moppet', 'Daisy'];
+const sibActions = ['judges', 'ignores', 'hisses at', 'naps on', 'steals from', 'outsmarts', 'judiciously bats at', 'critiques', 'demotes', 'hides from'];
+const results = ['the quarterly earnings', "Winnie's strategy", 'the treat stash', 'the CEO chair', 'the entire board of directors', 'the latest scandal', "Winnie's Little Tikes car", 'the Cheeto pile', 'the insurance policy', 'the morning zoomies'];
+
+sibs.forEach(sib => {
+    sibActions.forEach(act => {
+        results.forEach(res => {
+            NEWS_MESSAGES.push(`Family Drama: ${sib} ${act} ${res}.`);
+        });
+    });
+});
+
+
+// --- CRIME & SCANDAL GENERATOR ---
+const crimes = ['insider trading', 'fraud', 'treat smuggling', 'unlicensed zoomies', 'illegal barking', 'grand theft squeaky', 'bribery', 'tax evasion', 'public napping', 'counterfeit bones'];
+const punishments = ['5 minutes of time-out', 'no treats for an hour', 'mandatory bath', 'wearing a cone', 'social media apology', 'community service (tail wagging)', 'a stern talking-to', 'forfeit of the favorite toy', 'exile to the crate', 'loss of couch privileges'];
+
+crimes.forEach(crime => {
+    punishments.forEach(punish => {
+        NEWS_MESSAGES.push(`Justice: Winnie found guilty of ${crime}. Sentence: ${punish}.`);
+    });
+});
+
+const objects = ['Little Tikes car', 'squeaky duck', "neighbor's cat", "the mailman's bag", 'a giant cheeto', 'the CEO chair', 'the company vault', 'a delivery truck', 'the internet', 'gravity'];
+const theftActions = ['stole', 'hijacked', 'liquidated', 'chewed on', 'buried', 'repossessed', 'indexed', 'sold on the dark web', 'ate', 'lost'];
+
+objects.forEach(obj => {
+    theftActions.forEach(act => {
+        NEWS_MESSAGES.push(`Alert: Winnie ${act} ${obj} during an illegal spree.`);
+    });
+});
+
 
 // Scripts to procedurally generate more news to ensuring > 500 lines without pure bloat
 const animals = ['Cat', 'Dog', 'Hamster', 'Goldfish', 'Parrot', 'Lizard', 'Racoon', 'Possum', 'Turtle', 'Rabbit', 'Ferret', 'Guinea Pig'];
