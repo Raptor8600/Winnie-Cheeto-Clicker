@@ -127,12 +127,19 @@ function updateNewsTicker() {
     span.className = 'ticker-item';
     span.innerText = `🐕 ${message}`;
 
-    // Clean up after animation
-    span.addEventListener('animationend', () => {
+    let nextScheduled = false;
+    const scheduleNext = () => {
+        if (nextScheduled) return;
+        nextScheduled = true;
         span.remove();
-        // Schedule next one
-        setTimeout(updateNewsTicker, 500); // 0.5s pause between news
-    });
+        setTimeout(updateNewsTicker, 500);
+    };
+
+    // Clean up after animation
+    span.addEventListener('animationend', scheduleNext);
+
+    // Backup timer (15s animation + 5s buffer)
+    setTimeout(scheduleNext, 20000);
 
     el.tickerContent.appendChild(span);
 }
