@@ -458,7 +458,8 @@ export const NEWS_CATEGORIES = {
         "Legal Team: 'The vacuum is a violation of the 4th Amendment (Unreasonable Seizure of Dust).'",
         "Winnie's lawyers: 'We have 20 witnesses who say Winnie was a 'Good Girl' at the time of the heist.'",
         "Legal Statement: 'CEO Winnie is immune to all subpoenas that don't come in a wrapper.'",
-    ]
+    ],
+    EXPANSION: []
 };
 
 // --- MASSIVE NEWS GENERATORS ---
@@ -499,7 +500,7 @@ for (let i = 0; i < 30; i++) {
     tierThemes.forEach(theme => {
         tierActions.forEach(act => {
             tierOutcomes.forEach(out => {
-                NEWS_CATEGORIES.BASE.push(`Expansion: ${theme} has been ${act}. Result: ${out}.`);
+                NEWS_CATEGORIES.EXPANSION.push(`Expansion: ${theme} has been ${act}. Result: ${out}.`);
             });
         });
     });

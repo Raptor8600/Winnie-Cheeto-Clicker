@@ -196,21 +196,36 @@ function updateNewsTicker() {
     if (!el.tickerContent) return;
     if (el.tickerContent.children.length > 0) return;
 
-    // Collect all active news
-    let activeNews = [...NEWS_CATEGORIES.BASE];
+    // --- NEWS SELECTION LOGIC ---
+    // Goal: Emphasis on Daisy, Moppet, and Winnie at all times.
 
-    // Unlocks based on progress
-    if (state.totalRevenue > 1000) activeNews.push(...NEWS_CATEGORIES.INSURANCE_SATIRE);
-    if (state.chaosLevel >= 1) activeNews.push(...NEWS_CATEGORIES.CHAOS);
-    if (state.items[19] > 0 || state.auditsSurvived > 0) activeNews.push(...NEWS_CATEGORIES.SCANDAL);
-    if (state.items[61] > 0) activeNews.push(...NEWS_CATEGORIES.LEGAL_DEFENSE);
+    let characterNews = [...NEWS_CATEGORIES.BASE]; // Base contains heavy Winnie/Daisy/Moppet content
+    let systemNews = [];
 
-    // Add some random procedural ones to the mix
-    if (Math.random() < 0.3) activeNews.push(...NEWS_GENERATORS.SIBLINGS().slice(0, 50));
-    if (state.auditsSurvived > 0 && Math.random() < 0.3) activeNews.push(...NEWS_GENERATORS.CRIMES().slice(0, 50));
+    // Expand pools based on progress
+    if (state.totalRevenue > 1000) systemNews.push(...NEWS_CATEGORIES.INSURANCE_SATIRE);
+    if (state.chaosLevel >= 1) systemNews.push(...NEWS_CATEGORIES.CHAOS);
+    if (state.items[19] > 0 || state.auditsSurvived > 0) characterNews.push(...NEWS_CATEGORIES.SCANDAL);
+    if (state.items[61] > 0) characterNews.push(...NEWS_CATEGORIES.LEGAL_DEFENSE);
 
-    // Pick random message
-    let message = activeNews[Math.floor(Math.random() * activeNews.length)];
+    // Procedural character news
+    characterNews.push(...NEWS_GENERATORS.SIBLINGS().slice(0, 100));
+
+    // Procedural system/crime news
+    if (state.auditsSurvived > 0) systemNews.push(...NEWS_GENERATORS.CRIMES().slice(0, 50));
+
+    // Tier-based news (the "bogging down" part) - we limit its presence
+    if (state.totalRevenue > 1e6) {
+        systemNews.push(...NEWS_CATEGORIES.EXPANSION.slice(0, 100)); // Still only 100 of them
+    }
+
+    let message = "";
+    // 80% chance for Character Emphasis, 20% for System/Insurance Satire
+    if (Math.random() < 0.8 || systemNews.length === 0) {
+        message = characterNews[Math.floor(Math.random() * characterNews.length)];
+    } else {
+        message = systemNews[Math.floor(Math.random() * systemNews.length)];
+    }
 
     // Extremely rare special overrides
     if (Math.random() < 0.05) {
