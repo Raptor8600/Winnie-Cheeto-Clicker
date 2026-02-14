@@ -177,8 +177,14 @@ function useComplianceCredit() {
     }
 }
 
-// Attach to window so button can call it
+// Attach to globalThis/window so index.html onclick can find it
 globalThis.useComplianceCredit = useComplianceCredit;
+globalThis.resetGame = () => {
+    if (confirm("Are you sure you want to wipe your save and restart?")) {
+        localStorage.removeItem('winnieEmpireSave');
+        location.reload();
+    }
+};
 
 // --- DOM ELEMENTS ---
 let el = {};
@@ -233,13 +239,7 @@ function updateNewsTicker() {
     el.tickerContent.appendChild(span);
 }
 
-// Global reset function attached to window for access
-window.resetGame = () => {
-    if (confirm("Are you sure you want to wipe your save and restart?")) {
-        localStorage.removeItem('winnieEmpireSave');
-        location.reload();
-    }
-};
+
 
 // --- CORE LOGIC ---
 
@@ -714,8 +714,9 @@ function startGameLoop() {
         let riskDecay = 0.1;
 
         // Items acting against decay or adding generation
-        if (state.items[19] > 0) riskDecay = -0.05; // Generates 0.5 Risk/sec
-        if (state.items[9] > 0) riskDecay = 0; // Stays static
+        // Optimized: Reduced generation from Actuarial Unit and ensured base decay remains
+        if (state.items[19] > 0) riskDecay = -0.02; // Generates 0.2 Risk/sec (Reduced)
+        if (state.items[9] > 0) riskDecay = 0.02;  // Reduced decay (feels 'heavy' but not 'stuck')
 
         if (state.spice > 0) state.spice = Math.max(0, state.spice - spiceDecay);
 
@@ -774,8 +775,10 @@ function initGame() {
                         const savedItems = parsed[k];
                         // Copy existing counts to new array, leave new slots as 0
                         for (let i = 0; i < savedItems.length; i++) {
-                            if (i < state.items.length) state.items[i] = savedItems[i];
+                            if (i < state.items.length) state.items[i] = Number(savedItems[i]) || 0;
                         }
+                    } else if (typeof parsed[k] === 'number') {
+                        state[k] = Number(parsed[k]);
                     } else {
                         state[k] = parsed[k];
                     }
