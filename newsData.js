@@ -94,7 +94,83 @@ export const NEWS_CATEGORIES = {
         "Daisy: 'Everything is a toy if you try hard enough. Including the CEO's tail.'",
         "Winnie: 'I don't need a gym. Chasing the mailman is my cardio.'",
         "Moppet: 'The vacuum is the only auditor I fear.'",
-        "Daisy: 'Is 'psst psst psst' a legally binding contract internal to the company?'"
+        "Daisy: 'Is 'psst psst psst' a legally binding contract internal to the company?'",
+        "Winnie found a loop-hole: If I don't see the mailman, he doesn't exist. Claim denied.",
+        "Moppet seen auditing the 'under-the-fridge' stash. Finding: 3 grapes and a Lego.",
+        "Daisy successfully executed a 'vertical zoomie' up the CEO's leg.",
+        "Winnie: 'I'm not begging, I'm just aggressively manifesting your sandwich.'",
+        "Moppet: 'The dog's IQ is 10% fluff and 90% hope.'",
+        "Daisy caught trying to 'hunt' the computer cursor during a merger call.",
+        "Winnie: 'I did not eat the cat's dinner. I simply reallocated it to a more deserving department.'",
+        "Moppet: 'I've decided to recognize Winnie as a 'natural disaster' for insurance purposes.'",
+        "Daisy: 'If I can't see the dog, the dog can't lick me. Logic.'",
+        "Winnie caught 'digging' for gold in the living room carpet. Found: One 2021 Cheeto.",
+        "Moppet: 'The vacuum is a government auditor sent to silence me.'",
+        "Daisy's first hiss was aimed at a cucumber. Winnie: 'She's reaching her potential.'",
+        "Winnie: 'I don't need a leash, I need a legal counsel.'",
+        "Moppet caught sleeping on the 'Buy' button. Sales have peaked.",
+        "Daisy: 'Why is Winnie's tail so long? Is it a separate entity?'",
+        "Winnie heard a cheese wrapper from three zip codes away.",
+        "Moppet: 'I treat the CEO's tail like a corporate stress ball.'",
+        "Daisy: 'The red dot is my true boss. Winnie is just the muscle.'",
+        "Winnie: 'I'm not shedding, I'm distributing corporate glitter.'",
+        "Winnie: 'I intercepted the Cheeto delivery. It was a matter of national security.'",
+        "Moppet: 'I saw Winnie stuck in the backpack. I did nothing. Market efficiency.'",
+        "Daisy attempting to 'parallel park' her tiny body between Winnie's paws.",
+        "Winnie: 'I licked your backpack because it smelled like 0.1% of a Cheeto.'",
+        "Moppet: 'The dog's barking is just a low-quality podcast I'm forced to listen to.'",
+        "Daisy: 'If I bork at the mirror, does the other kitten bork back?'",
+        "Winnie: 'I've patented the 'Sad Eye' look. It's my most profitable asset.'",
+        "Moppet caught hacking the treat dispenser using a strategically placed claw.",
+        "Daisy: 'The carpet is my kingdom. The dog is the dragon I must slay (or nap on).'",
+        "Winnie: 'I accidentally insured the neighbor's cat. Moppet is furious.'",
+        "Winnie's new motto: 'Bark first, ask for forgiveness later. Repeat.'",
+        "Moppet seen 'knocking' Winnie's dignity off the table. It shattered.",
+        "Daisy trying to 'zoomie' through the CEO's legs. Failed. It was a 'zoom-collision'.",
+        "Winnie: 'I didn't steal your Cheetos. I processed them into energy.'",
+        "Moppet: 'The dog thinks I'm her sister. I think she's a loud, orange boulder.'",
+        "Daisy: 'Why does Winnie smell like artificial cheese and desperation?'",
+        "Winnie caught trying to 'bury' a cheeto in your laundry basket.",
+        "Moppet: 'I judge the company by its snacks. Currently: 2/10 stars.'",
+        "Daisy: 'I can jump high, but only if nobody is watching.'",
+        "Winnie: 'I'm not a bad girl, I'm just 'creatively compliant'.'",
+        "Winnie: 'I found your secret Cheeto stash. It's not secret anymore. It's 'Winnie-Property'.'",
+        "Moppet seen 'eye-rolling' at Winnie's 10th consecutive bark at a leaf.",
+        "Daisy: 'I'm going to grow up to be a tiger. Winnie will be my first snack.'",
+        "Winnie: 'I've decided to tax the air. Moppet is exempt because she scares me.'",
+        "Scandal: Winnie caught using Daisy to reach the 'Top Shelf' cookies.",
+        "Moppet: 'I don't sleep 20 hours a day. I ponder the ruin of my enemies.'",
+        "Daisy: 'The dog's ears are my favorite chew toy. 5 stars. Highly recommend.'",
+        "Winnie: 'I didn't break the vase. It was a 'gravity test' initiated by Moppet.'",
+        "Moppet: 'Winnie's brain is just a Windows 95 screensaver of a floating bone.'",
+        "Daisy: 'If I wiggle my butt, I can teleport. Science.'",
+        "Winnie caught trying to 'herd' the cats into the bathroom. Current status: Multiple scratches.",
+        "Winnie: 'I'm not overweight, I'm 'heavily diversified' in the fat sector.'",
+        "Moppet: 'The dog's tail is a menace to the structural integrity of this home.'",
+        "Daisy: 'I caught a fly. I am the apex predator. Bow before me, Winnie.'",
+        "Winnie: 'Your backpack is basically just a giant, portable treat bag. Why hide it?'",
+        "Moppet: 'I didn't knock the plant over. I 'downsized' the greenery.'",
+        "Daisy trying to 'pounce' on Winnie's snoot while she's sleeping. Brave. 🐾",
+        "Winnie: 'I heard the word 'Walk' in a parallel universe. I am ready.'",
+        "Moppet: 'I've decided to allow Winnie to live. For now. The treats must flow.'",
+        "Daisy: 'Why is the dog so orange? Is she part Cheeto?'",
+        "Winnie: 'I'm not a thief. I'm a 'treasure repositioning specialist'.'",
+        "Winnie: 'I intercepted your Cheetos. I consider this a 'tax on proximity'.'",
+        "Moppet seen 'meditating' on Winnie's head. Winnie thinks it's a hat.",
+        "Daisy: 'The kitchen floor is made of cold and hope.'",
+        "Winnie: 'I bork at the door to keep the 'Invisible Badness' away. You're welcome.'",
+        "Moppet: 'The mailman is the only human I respect. He brings things to destroy.'",
+        "Daisy trying to 'shadow box' Moppet's tail. Current survival rate: Low.",
+        "Winnie: 'I didn't lick the dishes. I pre-rinsed them for the dishwasher.'",
+        "Moppet: 'Winnie's energy levels are 'Illegal' by my feline standards.'",
+        "Daisy: 'Everything is a playground. Mostly the dog's back.'",
+        "Winnie: 'I've decided to insure my ears against 'Moppet-Hissing-Events'.'",
+        "Moppet: 'The vacuum is crying again. I must taunt it from the couch.'",
+        "Daisy: 'I caught a string. It was the CEO's shoelace. I regret nothing.'",
+        "Winnie: 'I found a Cheeto in my fur. It was like finding a $20 bill.'",
+        "Moppet: 'Winnie's 'Good Girl' status is currently under internal review.'",
+        "Daisy: 'I want to be a CEO. Does it involve a lot of napping or a lot of biting?'",
+        "Winnie: 'I'm not a dog. I'm a fluffy insurance mogul.'",
     ],
     SCANDAL: [
         "Breaking: Winnie arrested for DUI while operating a Red Little Tikes Cozy Coupe.",
@@ -256,8 +332,8 @@ export const NEWS_CATEGORIES = {
 export const NEWS_GENERATORS = {
     CRIMES: () => {
         const msgs = [];
-        const crimes = ['insider trading', 'fraud', 'treat smuggling', 'unlicensed zoomies', 'illegal barking', 'grand theft squeaky', 'bribery', 'tax evasion', 'public napping', 'counterfeit bones'];
-        const punishments = ['5 minutes of time-out', 'no treats for an hour', 'mandatory bath', 'wearing a cone', 'social media apology', 'community service (tail wagging)', 'a stern talking-to', 'forfeit of the favorite toy', 'exile to the crate', 'loss of couch privileges'];
+        const crimes = ['insider trading', 'fraud', 'treat smuggling', 'unlicensed zoomies', 'illegal barking', 'grand theft squeaky', 'bribery', 'tax evasion', 'public napping', 'counterfeit bones', 'aggressive manifesting', 'backpack theft', 'corporate espionage', 'Cheeto money laundering', 'snoot-booping without a permit'];
+        const punishments = ['5 minutes of time-out', 'no treats for an hour', 'mandatory bath', 'wearing a cone', 'social media apology', 'community service (tail wagging)', 'a stern talking-to', 'forfeit of the favorite toy', 'exile to the crate', 'loss of couch privileges', 'temporary relegation to kitten status', 'mandatory nap', 'aggressive brushing', 'one hour of cat-listening', 'no couch for a week'];
         crimes.forEach(crime => {
             punishments.forEach(punish => {
                 msgs.push(`Justice: Winnie found guilty of ${crime}. Sentence: ${punish}.`);
@@ -267,8 +343,8 @@ export const NEWS_GENERATORS = {
     },
     THEFT: () => {
         const msgs = [];
-        const objects = ['Little Tikes car', 'squeaky duck', "neighbor's cat", "the mailman's bag", 'a giant cheeto', 'the CEO chair', 'the company vault', 'a delivery truck', 'the internet', 'gravity'];
-        const theftActions = ['stole', 'hijacked', 'liquidated', 'chewed on', 'buried', 'repossessed', 'indexed', 'sold on the dark web', 'ate', 'lost'];
+        const objects = ['Little Tikes car', 'squeaky duck', "neighbor's cat", "the mailman's bag", 'a giant cheeto', 'the CEO chair', 'the company vault', 'a delivery truck', 'the internet', 'gravity', 'the backpack', 'the laptop charger', 'the sacred slippers', 'every single sock', 'the concept of taxes'];
+        const theftActions = ['stole', 'hijacked', 'liquidated', 'chewed on', 'buried', 'repossessed', 'indexed', 'sold on the dark web', 'ate', 'lost', 'claimed as a dependent', 'sniffed aggressively', 'digitized', 'turned into a chew toy', 'hacked'];
         objects.forEach(obj => {
             theftActions.forEach(act => {
                 msgs.push(`Alert: Winnie ${act} ${obj} during an illegal spree.`);
@@ -278,9 +354,9 @@ export const NEWS_GENERATORS = {
     },
     SIBLINGS: () => {
         const msgs = [];
-        const sibs = ['Moppet', 'Daisy'];
-        const sibActions = ['judges', 'ignores', 'hisses at', 'naps on', 'steals from', 'outsmarts', 'judiciously bats at', 'critiques', 'demotes', 'hides from'];
-        const results = ['the quarterly earnings', "Winnie's strategy", 'the treat stash', 'the CEO chair', 'the entire board of directors', 'the latest scandal', "Winnie's Little Tikes car", 'the Cheeto pile', 'the insurance policy', 'the morning zoomies'];
+        const sibs = ['Moppet', 'Daisy', "The neighbor's cat", 'A confused squirrel'];
+        const sibActions = ['judges', 'ignores', 'hisses at', 'naps on', 'steals from', 'outsmarts', 'judiciously bats at', 'critiques', 'demotes', 'hides from', 'bestows a boop upon', 'challenges to a duel', 'accuses of fraud', 'gaslights', 'pranks'];
+        const results = ['the quarterly earnings', "Winnie's strategy", 'the treat stash', 'the CEO chair', 'the entire board of directors', 'the latest scandal', "Winnie's Little Tikes car", 'the Cheeto pile', 'the insurance policy', 'the morning zoomies', 'the sacred sunbeam', 'the vacuum cleaner', 'the kitchen counter', 'the backup server', 'the concept of peace'];
         sibs.forEach(sib => {
             sibActions.forEach(act => {
                 results.forEach(res => {
