@@ -10,7 +10,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
+  <script>
+    if (window.location.protocol === 'file:') {
+      window.location.href = 'http://localhost:5173';
+    }
+  </script>
 </head>
 
 <body>
@@ -49,6 +54,21 @@
         <p class="meter-desc">High risk triggers an Audit!</p>
       </div>
 
+      <div class="meter-group">
+        <h3>Level <span id="level-val">1</span></h3>
+        <div class="meter-bar-bg">
+          <div id="level-bar" class="meter-bar level-fill" style="width: 0%"></div>
+        </div>
+        <p class="meter-desc" id="level-desc">Expand your empire to level up!</p>
+      </div>
+
+      <div class="meter-group" id="mana-group" style="display: none;">
+        <h3>Moppet's Patience <span id="mana-val">100</span>/100</h3>
+        <div class="meter-bar-bg">
+          <div id="mana-bar" class="meter-bar mana-fill" style="width: 100%"></div>
+        </div>
+      </div>
+
       <div class="stat-group" id="chaos-container" style="display: none;">
         <h3>Chaos Level</h3>
         <div id="chaos-display" class="chaos-text">Normal</div>
@@ -63,6 +83,14 @@
         <button id="compliance-btn" onclick="window.useComplianceCredit()"
           style="background: var(--revenue-green); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-family: var(--font-main); font-weight: bold; font-size: 0.7rem;">FILE
           REPORT</button>
+      </div>
+
+      <div id="prestige-container" class="panel glass-panel"
+        style="margin-top: 10px; display: none; text-align: center;">
+        <h3 style="color: var(--chaos-purple); margin: 0;">Gilded Paw Prestige</h3>
+        <p style="font-size: 0.7rem; margin: 5px 0;">Next: +<span id="prestige-gain">0</span> 🐾</p>
+        <button id="prestige-btn" onclick="window.prestigeGame()"
+          style="background: var(--chaos-purple); color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-family: var(--font-main); font-weight: bold; width: 100%;">ASCEND</button>
       </div>
 
       <!-- Fun Image Area (Card Flip) -->
@@ -88,7 +116,9 @@
 
       <div id="winnie-container">
         <!-- Representing Winnie with CSS/Emoji until image available -->
-        <div id="winnie" class="winnie-character" title="Winnie the Health Insurance CEO">🐕</div>
+        <div id="winnie" class="winnie-character char-winnie" title="Winnie the Health Insurance CEO">🐕</div>
+        <div id="daisy" class="winnie-character char-daisy hidden" title="Daisy the Mischievous Kitten">🐈‍⬛</div>
+        <div id="moppet" class="winnie-character char-moppet hidden" title="Moppet the Sophisticated Cat">🐈</div>
       </div>
 
       <!-- The Giant Hot Cheeto -->
@@ -126,7 +156,36 @@
           <!-- Store items injected here -->
         </div>
       </div>
+
+      <!-- Mini-games Tab -->
+      <div id="minigame-section"
+        style="margin-top: 15px; border-top: 1px solid var(--glass-border); padding-top: 10px;">
+        <h3>Executive Suite</h3>
+        <div class="minigame-buttons" style="display: flex; gap: 5px; flex-wrap: wrap;">
+          <button id="btn-stock-market" onclick="window.toggleMinigame('stock')" class="minigame-tab-btn">📈 Bone
+            Market</button>
+          <button id="btn-grimoire" onclick="window.toggleMinigame('grimoire')" class="minigame-tab-btn">📖 Trick
+            Book</button>
+          <button id="btn-garden" onclick="window.toggleMinigame('garden')" class="minigame-tab-btn">🌱 Toy
+            Garden</button>
+          <button id="btn-pantheon" onclick="window.toggleMinigame('pantheon')" class="minigame-tab-btn">🏛️ Pet
+            Pantheon</button>
+        </div>
+      </div>
     </aside>
+  </div>
+
+  <!-- Mini-game Overlays -->
+  <div id="minigame-overlay" class="hidden">
+    <div class="minigame-window glass-panel">
+      <div class="minigame-header">
+        <h2 id="minigame-title">Empire Suite</h2>
+        <button onclick="window.toggleMinigame(null)" class="close-btn">&times;</button>
+      </div>
+      <div id="minigame-content">
+        <!-- Stock Market or Grimoire content injected here -->
+      </div>
+    </div>
   </div>
 
   <!-- Disclaimer -->
@@ -137,7 +196,7 @@
       Save</button>
   </footer>
 
-  <script type="module" src="main.js"></script>
+  <script type="module" src="main.js?v=2"></script>
 </body>
 
 </html>

@@ -179,6 +179,16 @@ body {
     box-shadow: 0 0 8px var(--risk-red);
 }
 
+.level-fill {
+    background: linear-gradient(90deg, #b3e5fc, #03a9f4);
+    box-shadow: 0 0 8px #03a9f4;
+}
+
+.mana-fill {
+    background: linear-gradient(90deg, #ce93d8, var(--chaos-purple));
+    box-shadow: 0 0 8px var(--chaos-purple);
+}
+
 .meter-desc {
     font-size: 0.7rem;
     color: #666;
@@ -281,8 +291,57 @@ body {
 .winnie-character {
     font-size: 8rem;
     filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
-    transition: transform 0.2s;
-    opacity: 0.5;
+    transition: all 0.5s ease-in-out;
+    opacity: 0.8;
+}
+
+.char-winnie {
+    position: relative;
+    z-index: 2;
+}
+
+.char-daisy {
+    position: absolute;
+    font-size: 4rem;
+    bottom: -20px;
+    right: -80px;
+    z-index: 3;
+    animation: daisy-peek 4s infinite alternate;
+}
+
+.char-moppet {
+    position: absolute;
+    font-size: 5rem;
+    top: -40px;
+    left: -100px;
+    z-index: 1;
+    animation: moppet-float 6s infinite ease-in-out;
+}
+
+@keyframes daisy-peek {
+    0% {
+        transform: translate(0, 0) rotate(5deg);
+    }
+
+    100% {
+        transform: translate(10px, -10px) rotate(-5deg);
+    }
+}
+
+@keyframes moppet-float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(2deg);
+    }
+}
+
+.hidden {
+    display: none !important;
 }
 
 #cheeto-container {
@@ -386,8 +445,8 @@ body {
     animation: float-pop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     /* Bouncy pop */
     z-index: 30;
-    user-select: none;
     -webkit-user-select: none;
+    user-select: none;
     /* Gradient Text */
     background: linear-gradient(to bottom, #fff, #ffe0b2);
     -webkit-background-clip: text;
@@ -434,7 +493,20 @@ body {
 }
 
 #event-overlay.hidden {
-    display: none;
+    display: none !important;
+}
+
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #121212;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #event-overlay h1 {
@@ -495,8 +567,8 @@ body {
     font-size: 1.2rem;
     transition: all 0.2s;
     position: relative;
-    user-select: none;
     -webkit-user-select: none;
+    user-select: none;
     pointer-events: auto;
 }
 
@@ -543,8 +615,8 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.2s, border-color 0.2s;
-    user-select: none;
     -webkit-user-select: none;
+    user-select: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -604,6 +676,28 @@ body {
     /* Button captures clicks */
 }
 
+.golden-cheeto {
+    position: absolute;
+    font-size: 3rem;
+    cursor: pointer;
+    z-index: 1000;
+    filter: drop-shadow(0 0 10px gold);
+    animation: golden-pulse 1s infinite alternate;
+    user-select: none;
+}
+
+@keyframes golden-pulse {
+    from {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px gold);
+    }
+
+    to {
+        transform: scale(1.2);
+        filter: drop-shadow(0 0 20px gold) brightness(1.2);
+    }
+}
+
 /* CHAOS */
 .chaos-level-1 {
     transform: rotate(0.1deg);
@@ -652,4 +746,182 @@ body {
 
 .btn-disabled {
     filter: grayscale(1);
+}
+
+.zoomie-daisy {
+    position: fixed;
+    font-size: 4rem;
+    z-index: 2000;
+    pointer-events: auto;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    filter: drop-shadow(0 0 15px white);
+    white-space: nowrap;
+}
+
+.moppet-audit {
+    position: fixed;
+    font-size: 5rem;
+    z-index: 2000;
+    pointer-events: auto;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    filter: drop-shadow(0 0 20px gold);
+    animation: audit-shake 0.5s infinite;
+}
+
+@keyframes audit-shake {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    25% {
+        transform: rotate(5deg) scale(1.1);
+    }
+
+    75% {
+        transform: rotate(-5deg) scale(1.1);
+    }
+
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+#minigame-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.minigame-window {
+    width: 600px;
+    max-width: 90%;
+    max-height: 80vh;
+    padding: 20px;
+    position: relative;
+    overflow-y: auto;
+}
+
+.minigame-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 10px;
+}
+
+.minigame-tab-btn {
+    flex: 1;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-size: 0.8rem;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 100px;
+}
+
+.minigame-tab-btn:hover:not(.locked-btn) {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.locked-btn {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(1);
+    position: relative;
+    pointer-events: auto !important;
+    /* Allow click for feedback */
+}
+
+.locked-btn::after {
+    content: "🔒 Locked";
+    font-size: 0.6rem;
+    color: #ff4d4d;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* Stock Market Styles */
+.stock-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stock-table th,
+.stock-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stock-price-up {
+    color: #00ff80;
+}
+
+.stock-price-down {
+    color: #ff4444;
+}
+
+/* Grimoire Styles */
+.spell-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.spell-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.spell-card:hover:not(.locked) {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.spell-card.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.spell-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.spell-cost {
+    font-weight: bold;
+    color: #bb86fc;
 }

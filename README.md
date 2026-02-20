@@ -26,31 +26,43 @@ If you prefer to run your empire from a secured local terminal (or just want to 
 ## 🏗️ The Corporate Mechanics
 
 ### 🟠 The Giant Cheeto
-The beating heart of our enterprise. Click it. Smush it. Every click generates **Revenue**, but be warned: it also generates **Spice** and **Audit Risk**. You cannot have the crunch without the heat.
+The beating heart of our enterprise. Click it to generate **Revenue**.
+- **Click Power**: Invest in upgrades like *Cheeto Dust Fingers* and *Diamond Claws* to multiply your manual income.
+- **Scaling**: After Level 10, your clicks gain additional power equal to **1% of your RPS**.
 
-### 📈 Tiers of Expansion
-We have **40 Tiers** of increasingly questionable business units. Start small with a humble **Standard Claim Form** and work your way up to the **Winnie National Health Empire**. Each tier increases your **Revenue Per Second (RPS)**, allowing you to earn cash even while you're napping (or chasing your tail).
+### 🌶️ The Spice & Risk Systems
+Handling this much orange dust is dangerous.
+- **Spice Level**: Rapid clicking builds spice. If it caps, you hit a **Meltdown**—pure chaos for a few seconds.
+- **Audit Risk**: questionable business practices raise risk. At 100%, a **Federal Audit** halves your revenue until resolved.
+- **Compliance Credits**: Earn credits every 500 clicks. Use **FILE REPORT** to immediately vent 30 Spice and 30 Risk.
 
-### 🌶️ The Spice Meter (Exposure)
-Handling this much orange dust is dangerous. As you click, your **Spice Level** rises. 
-- **The Melt**: If Spice hits the limit, we have a **Meltdown**. Everything turns into a blur, and Winnie might lose her cool for a few seconds.
-- **Cooling Down**: Spice decays naturally over time, provided you stop touching the Cheeto for a second.
+---
 
-### 🚔 The Audit Risk (Liability)
-The "government" and "regulatory boards" (buzzkills) are always watching.
-- **The Audit**: If Risk hits 100%, you get slapped with a **Federal Audit**. Your revenue is halved until the heat dies down.
-- **Paper Trail**: High-tier items generate passive risk. The bigger you are, the harder they try to count your beans.
+## 🏛️ The Executive Suite (Mini-Games)
+Unlocked as your Empire grows, these systems provide massive passive and active bonuses:
 
-### 📄 Compliance Credits (The Get-Out-Of-Jail-Free Card)
-For every **500 manual smushes**, Winnie earns a **Compliance Credit**. 
-- **FILE REPORT**: Use a credit to file a very official-looking document. This immediately vents **30 Spice** and **30 Risk**, making the auditors look the other way.
+1.  **🌱 Toy Garden (Lvl 3)**: Plant seeds to gain stacking passive bonuses. Harvest mature plants for seeds and revenue windfalls.
+2.  **📈 Bone Market (Lvl 7)**: Play the stock market! Buy low and sell high, with prices tied to your current production power.
+3.  **📖 Trick Book (Lvl 15)**: Use **Moppet's Patience (Mana)** to cast powerful spells like *Force Frenzy* or *Manifest Biscuits*.
+4.  **🏛️ Pet Pantheon (Lvl 25)**: Slot the spirits of Winnie, Daisy, and Moppet into the Diamond, Ruby, and Jade slots to customize your empire's stats.
 
-### ⬆️ Upgrades & Milestones
-Unlock over **100+ Upgrades**! From "Cheeto Dust Fingers" (Double Click Power) to "Milk Chugs" (Higher Spice Tolerance). Keep an eye out for global milestones that permanently shift the reality of your corporate surroundings.
+---
+
+## 🐈 The Trinity (Characters)
+- **🐕 Winnie**: The CEO. Always present, always hungry for revenue.
+- **🐈‍⬛ Daisy (Lvl 5)**: The Speed Specialist. Catch her **Midnight Zoomies** for a x2 RPS boost!
+- **🐈 Moppet (Lvl 15)**: The Auditor. Manages your Mana and occasionally issues **Quality Audits** for Compliance Credits.
+
+---
+
+## 🐾 Ascension & Prestige
+Once you reach **Level 50** or generate **$100 Billion**, you can **Ascend**.
+- Ascending resets your progress but grants **Gilded Paws (🐾)**.
+- Each Gilded Paw provides a permanent **+10% boost** to all future revenue generation.
 
 ---
 
 ## ⚖️ Disclaimer
-This is satirical. Winnie is a very good girl and has never actually committed insurance fraud. Please do not attempt to fund a health insurance empire with snacks in real life.
+This is satirical. Winnie is a very good girl and has never actually committed insurance fraud. 
 
 *Paws up, Revenue up!* 🐕💰🔥
