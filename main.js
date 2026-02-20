@@ -395,6 +395,20 @@ function calculateRPS() {
         if (sId === 'stoic') rps *= (1 - 0.15 * e);
     });
 
+    // --- DIVINE ALIGNMENT BONUS ---
+    if (state.pantheon.alignment > 0) {
+        // +1% Global RPS per 10% alignment
+        const alignmentBonus = 1 + (state.pantheon.alignment / 10) * 0.01;
+        rps *= alignmentBonus;
+    }
+
+    // --- PRESTIGE BONUS ---
+    if (state.prestige && state.prestige.biscuits > 0) {
+        // 1% boost per Gilded Paw
+        const prestigeMultiplier = 1 + (state.prestige.biscuits * 0.01);
+        rps *= prestigeMultiplier;
+    }
+
     state.revenuePerSecond = rps;
 }
 
@@ -770,6 +784,29 @@ function updateUI() {
     renderStore();
     renderUpgrades();
 
+    // Update Prestige Display
+    if (state.totalRevenue > 1000000) {
+        if (el.prestigeContainer) el.prestigeContainer.style.display = 'block';
+        const gain = calculatePrestigeGain();
+        if (el.prestigeGain) el.prestigeGain.innerText = gain;
+
+        // --- NEW: Detailed Prestige Stats ---
+        const currentPrestige = document.getElementById('current-prestige');
+        const prestigeBonus = document.getElementById('prestige-bonus');
+        if (currentPrestige) currentPrestige.innerText = state.prestige.biscuits.toLocaleString();
+        if (prestigeBonus) prestigeBonus.innerText = `${(state.prestige.biscuits * 1).toLocaleString()}%`;
+    }
+
+    // --- NEW: Golden Biscuit Gauge Update ---
+    const nextBoneTimer = document.getElementById('next-bone-timer');
+    if (nextBoneTimer) {
+        const elapsed = Date.now() - state.lastGoldenBiscuit;
+        const remaining = Math.max(0, (15 * 60000) - elapsed);
+        const mins = Math.floor(remaining / 60000);
+        const secs = Math.floor((remaining % 60000) / 1000);
+        nextBoneTimer.innerText = `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
     // Minigame Button States
     const minigameReqs = {
         'btn-garden': 3,
@@ -971,6 +1008,16 @@ function startGameLoop() {
             state.pantheon.lastSwap = Date.now();
         }
 
+        // --- NEW: Pantheon Divine Alignment Progress ---
+        // Aligns 1% every 10 seconds if all slots are full
+        const fullSlots = state.pantheon.slots.filter(s => s !== null).length;
+        if (fullSlots === 3) {
+            if (!state.pantheon.alignment) state.pantheon.alignment = 0;
+            state.pantheon.alignment = Math.min(100, state.pantheon.alignment + 0.1); // 1% per 100 ticks (10s)
+        } else if (fullSlots === 0) {
+            state.pantheon.alignment = Math.max(0, (state.pantheon.alignment || 0) - 0.05); // Decays if empty
+        }
+
         updateLevels();
         updateChaos();
         updateGarden();
@@ -1065,7 +1112,7 @@ function spawnGoldenCheeto() {
 function spawnZoomieDaisy() {
     const d = document.createElement('div');
     d.className = 'zoomie-daisy';
-    d.innerHTML = '<span style="display:inline-block; transform: scaleX(-1);">🐈‍⬛</span>💨'; // Flip cat to face right
+    d.innerHTML = '<span style="display:inline-block; transform: scaleX(-1);">💨</span><span style="display:inline-block; transform: scaleX(-1);">🐈‍⬛</span>'; // Trail + flipped cat
     d.style.left = '-100px';
     d.style.top = Math.random() * 60 + 20 + '%';
     document.body.appendChild(d);
@@ -1083,6 +1130,7 @@ function spawnZoomieDaisy() {
 
         setTimeout(() => {
             state.revenuePerSecond /= 2;
+            updateUI();
         }, 30000);
     };
 
@@ -1122,8 +1170,12 @@ function spawnMoppetAudit() {
 
     m.onclick = () => {
         state.complianceCredits += 2;
-        createFloatingText('AUDIT PASSED! +2 Credits', window.innerWidth / 2, window.innerHeight / 2);
+        // Also give a random seed!
+        const seedId = GARDEN_PLANTS[Math.floor(Math.random() * GARDEN_PLANTS.length)].id;
+        state.garden.seedsOwned[seedId] = (state.garden.seedsOwned[seedId] || 0) + 1;
+        createFloatingText(`AUDIT PASSED! +2 Credits +1 Seed`, window.innerWidth / 2, window.innerHeight / 2);
         m.remove();
+        if (state.activeMinigame === 'garden') renderGarden();
     };
 }
 
@@ -1164,10 +1216,10 @@ globalThis.handleGardenClick = (x, y) => {
         if (age >= cell.growthTime) {
             // Harvest mature plant
             state.garden.grid[y][x] = null;
-            const reward = Math.floor(state.revenuePerSecond * 60);
+            const reward = Math.floor(state.revenuePerSecond * 300); // Massive buff
             state.revenue += reward;
             createFloatingText(`HARVESTED! +$${reward.toLocaleString()} +1 Seed`, window.innerWidth / 2, window.innerHeight / 2);
-            state.garden.seedsOwned[cell.id]++;
+            state.garden.seedsOwned[cell.id] = (state.garden.seedsOwned[cell.id] || 0) + 1;
             renderGarden();
             calculateRPS();
         } else {
@@ -1179,44 +1231,61 @@ globalThis.handleGardenClick = (x, y) => {
         state.garden.grid[y][x] = { ...plant, plantedAt: Date.now() };
         renderGarden();
     } else {
-        createFloatingText("Select a seed first!", window.innerWidth / 2, window.innerHeight / 2);
+        createFloatingText("Need a seed! (Earn from Audits or Meltdowns)", window.innerWidth / 2, window.innerHeight / 2);
     }
 };
+window.handleGardenClick = globalThis.handleGardenClick;
 
 function renderPantheon() {
     const content = document.getElementById('minigame-content');
+
+    // Ensure state exists
+    if (!state.pantheon.alignment) state.pantheon.alignment = 0;
+
     content.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <p title="Regenerates 1 swap per hour">Swaps: <b>${state.pantheon.swaps}/3</b></p>
-            <button onclick="window.useGoldenBiscuit('swaps')" class="btn" style="background: gold; color: black; font-weight: bold;">Refill (${state.goldenBiscuits} 🦴)</button>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <p title="Regenerates 1 swap per hour">🦴 Swaps: <b>${state.pantheon.swaps}/3</b></p>
+                <div style="text-align: right;">
+                    <div style="font-size: 0.8rem; color: #bb86fc;">Divine Alignment: <b>${Math.floor(state.pantheon.alignment)}%</b></div>
+                    <div style="font-size: 0.6rem; color: #aaa;">Aligns faster with balanced slots. Gives +1% Global RPS per 10% alignment.</div>
+                </div>
+            </div>
+            <button onclick="window.useGoldenBiscuit('swaps')" class="btn" style="background: gold; color: black; font-weight: bold; width: 100%;">Refill Swaps (Costs 1 🦴)</button>
         </div>
-        <div class="pantheon-slots" style="display: flex; gap: 20px; justify-content: center; margin-bottom: 25px; margin-top: 15px;">
-            ${['💎 Diamond', '🛑 Ruby', '🟢 Jade'].map((name, i) => `
-                <div class="slot" style="width: 100px; height: 130px; border: 2px dashed rgba(255,255,255,0.2); border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); position: relative;">
-                    <div style="font-size: 0.7rem; margin-bottom: 10px; color: #aaa;">${name}</div>
-                    <div id="slot-${i}" style="font-size: 3rem; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); cursor: pointer;" onclick="window.assignSpirit(${i}, null)">
+        
+        <div class="pantheon-slots" style="display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; margin-top: 15px;">
+            ${['💎 Diamond (1x)', '🛑 Ruby (0.5x)', '🟢 Jade (0.25x)'].map((name, i) => `
+                <div class="slot" style="flex: 1; height: 140px; border: 2px dashed rgba(255,255,255,0.2); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); position: relative; transition: all 0.3s;">
+                    <div style="font-size: 0.6rem; margin-bottom: 5px; color: #aaa; text-align: center;">${name}</div>
+                    <div id="slot-${i}" style="font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); cursor: pointer;" onclick="window.assignSpirit(${i}, null)">
                         ${state.pantheon.slots[i] ? SPIRITS.find(s => s.id === state.pantheon.slots[i]).icon : '❓'}
                     </div>
-                    ${state.pantheon.slots[i] ? `<div style="font-size: 0.6rem; color: #00ff80; margin-top: 5px;">ACTIVE</div>` : ''}
+                    ${state.pantheon.slots[i] ? `<div style="font-size: 0.5rem; color: #00ff80; margin-top: 5px;">COMMUNING</div>` : '<div style="font-size: 0.5rem; color: #ff4d4d; margin-top: 5px;">EMPTY</div>'}
                 </div>
             `).join('')}
         </div>
-        <div class="spirits-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px;">
+
+        <div class="spirits-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px;">
             ${SPIRITS.map(s => `
-                <div class="spirit-card glass-panel" style="padding: 12px; text-align: center; cursor: pointer; border: 1px solid ${state.pantheon.slots.includes(s.id) ? '#00ff80' : 'var(--glass-border)'};" onclick="window.handleSpiritClick('${s.id}')">
-                    <div style="font-size: 2rem; margin-bottom: 5px;">${s.icon}</div>
-                    <div style="font-weight: bold; font-size: 0.9rem; margin-bottom: 5px;">${s.name}</div>
-                    <div style="font-size: 0.7rem; line-height: 1.2; color: #ccc;">${s.desc}</div>
+                <div class="spirit-card glass-panel" style="padding: 10px; text-align: center; cursor: pointer; border: 1px solid ${state.pantheon.slots.includes(s.id) ? '#00ff80' : 'var(--glass-border)'}; transition: transform 0.2s;" onclick="window.handleSpiritClick('${s.id}')">
+                    <div style="font-size: 1.8rem; margin-bottom: 5px;">${s.icon}</div>
+                    <div style="font-weight: bold; font-size: 0.8rem; margin-bottom: 3px;">${s.name}</div>
+                    <div style="font-size: 0.65rem; line-height: 1.1; color: #ccc;">${s.desc}</div>
                 </div>
             `).join('')}
         </div>
-        <p style="font-size: 0.8rem; margin-top: 15px; color: #aaa; text-align: center;">Click a spirit to slot it. Efficiencies: Diamond (100%), Ruby (50%), Jade (25%).</p>
+        
+        <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; margin-top: 15px; border: 1px solid rgba(187, 134, 252, 0.2);">
+            <h4 style="margin: 0 0 5px 0; font-size: 0.8rem; color: #bb86fc;">Management Tip</h4>
+            <p style="font-size: 0.7rem; margin: 0; color: #aaa;">Spirits are fickle. Each swap drains Moppet's patience. Maintain a full Pantheon to increase **Divine Alignment** passively. High alignment grants powerful production multipliers that persist until slots are emptied.</p>
+        </div>
     `;
 }
 
 globalThis.assignSpirit = (slotIndex, spiritId) => {
     if (spiritId !== null && state.pantheon.swaps <= 0) {
-        createFloatingText("No swaps left!", window.innerWidth / 2, window.innerHeight / 2);
+        createFloatingText("No swaps left!", globalThis.innerWidth / 2, globalThis.innerHeight / 2);
         return;
     }
 
@@ -1225,22 +1294,25 @@ globalThis.assignSpirit = (slotIndex, spiritId) => {
         const existing = state.pantheon.slots.indexOf(spiritId);
         if (existing !== -1) state.pantheon.slots[existing] = null;
         state.pantheon.swaps--;
+        // Reset alignment when swapping! (Fickle spirits)
+        state.pantheon.alignment = Math.max(0, state.pantheon.alignment - 20);
     }
 
     state.pantheon.slots[slotIndex] = spiritId;
     renderPantheon();
     calculateClickValue();
+    calculateRPS(); // Recalculate RPS context
 };
 
 globalThis.handleSpiritClick = (id) => {
     const alreadySlotted = state.pantheon.slots.indexOf(id);
     if (alreadySlotted !== -1) {
-        assignSpirit(alreadySlotted, null);
+        globalThis.assignSpirit(alreadySlotted, null);
         return;
     }
     const empty = state.pantheon.slots.indexOf(null);
-    if (empty !== -1) assignSpirit(empty, id);
-    else createFloatingText("Slots full! Clear one first.", window.innerWidth / 2, window.innerHeight / 2);
+    if (empty !== -1) globalThis.assignSpirit(empty, id);
+    else createFloatingText("Slots full! Clear one first.", globalThis.innerWidth / 2, globalThis.innerHeight / 2);
 };
 
 function renderStockMarket() {
@@ -1466,8 +1538,10 @@ function ensureStateConsistency() {
 
     // Ensure minigame sub-objects exist
     if (!state.garden) state.garden = { grid: new Array(4).fill(null).map(() => new Array(4).fill(null)), seedsOwned: { ball: 5 } };
-    if (!state.pantheon) state.pantheon = { slots: [null, null, null], swaps: 3, lastSwap: Date.now() };
+    if (!state.pantheon) state.pantheon = { slots: [null, null, null], swaps: 3, lastSwap: Date.now(), alignment: 0 };
+    if (state.pantheon.alignment === undefined) state.pantheon.alignment = 0;
     if (!state.stocks) state.stocks = STOCKS.map(s => ({ ...s, price: s.basePrice, owned: 0 }));
+    if (state.lastGoldenBiscuit === undefined) state.lastGoldenBiscuit = Date.now();
 }
 
 // --- GLOBAL EXPOSURE ---

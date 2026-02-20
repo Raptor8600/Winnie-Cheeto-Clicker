@@ -36,6 +36,9 @@
         <h2>Revenue</h2>
         <div id="revenue-display" class="big-number">$0</div>
         <div id="rps-display" class="sub-text">per second: $0</div>
+        <div id="bone-progress" style="font-size: 0.7rem; color: #ffcc00; margin-top: 5px;">
+          🦴 Next Bone in: <span id="next-bone-timer">15:00</span>
+        </div>
       </div>
 
       <div class="meter-group">
@@ -85,12 +88,23 @@
           REPORT</button>
       </div>
 
-      <div id="prestige-container" class="panel glass-panel"
-        style="margin-top: 10px; display: none; text-align: center;">
-        <h3 style="color: var(--chaos-purple); margin: 0;">Gilded Paw Prestige</h3>
-        <p style="font-size: 0.7rem; margin: 5px 0;">Next: +<span id="prestige-gain">0</span> 🐾</p>
-        <button id="prestige-btn" onclick="window.prestigeGame()"
-          style="background: var(--chaos-purple); color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-family: var(--font-main); font-weight: bold; width: 100%;">ASCEND</button>
+      <div id="prestige-container" class="panel glass-panel prestige-panel" style="display: none;">
+        <h3>Ascension Protocol</h3>
+        <div class="prestige-stats">
+          <div class="prestige-item">
+            <span>Owned:</span>
+            <span id="current-prestige" style="color: #00ff80;">0</span> 🐾
+          </div>
+          <div class="prestige-item">
+            <span>Bonus:</span>
+            <span id="prestige-bonus" style="color: #00ff80;">0%</span> RPS
+          </div>
+          <div class="prestige-item">
+            <span>Next:</span>
+            <span id="prestige-gain" style="color: #bb86fc;">0</span> 🐾
+          </div>
+        </div>
+        <button id="prestige-btn" onclick="window.prestigeGame()" class="ascend-btn">ASCEND</button>
       </div>
 
       <!-- Fun Image Area (Card Flip) -->
