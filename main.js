@@ -1065,7 +1065,7 @@ function spawnGoldenCheeto() {
 function spawnZoomieDaisy() {
     const d = document.createElement('div');
     d.className = 'zoomie-daisy';
-    d.innerHTML = '🐈‍⬛💨';
+    d.innerHTML = '<span style="display:inline-block; transform: scaleX(-1);">🐈‍⬛</span>💨'; // Flip cat to face right
     d.style.left = '-100px';
     d.style.top = Math.random() * 60 + 20 + '%';
     document.body.appendChild(d);
@@ -1077,9 +1077,12 @@ function spawnZoomieDaisy() {
         state.revenuePerSecond *= 2;
         createFloatingText('DAISY ZOOMIES! x2 RPS for 30s', window.innerWidth / 2, window.innerHeight / 2);
         d.innerHTML = '✨🐈‍⬛✨';
+
+        // Remove after a short "pop" effect instead of staying for 30s
+        setTimeout(() => { if (d.parentElement) d.remove(); }, 1000);
+
         setTimeout(() => {
             state.revenuePerSecond /= 2;
-            if (d.parentElement) d.remove();
         }, 30000);
     };
 
@@ -1088,7 +1091,7 @@ function spawnZoomieDaisy() {
     d.animate([
         { left: '-100px' },
         { left: '110vw' }
-    ], { duration: duration, iterations: 1 });
+    ], { duration: duration, iterations: 1, fill: 'forwards' });
 
     setTimeout(() => { if (!clicked && d.parentElement) d.remove(); }, duration);
 }
@@ -1131,7 +1134,6 @@ function renderGarden() {
     const content = document.getElementById('minigame-content');
     if (!content) return;
 
-    // Safety check for seedsOwned
     const seedInventory = Object.entries(state.garden.seedsOwned).map(([id, count]) => {
         const plant = GARDEN_PLANTS.find(p => p.id === id);
         return plant ? `${plant.icon} x${count}` : null;
@@ -1141,7 +1143,7 @@ function renderGarden() {
         <p>Seeds: ${seedInventory}</p>
         <div class="garden-grid" style="display: grid; grid-template-columns: repeat(4, 16.5%); gap: 8px; background: #3e2723; padding: 15px; border-radius: 10px; justify-content: center;">
             ${state.garden.grid.map((row, y) => row.map((cell, x) => `
-                <div class="garden-cell" onclick="handleGardenClick(${x}, ${y})" style="aspect-ratio: 1; background: #5d4037; border: 2px solid #3e2723; border-radius: 5px; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; transition: background 0.2s;">
+                <div class="garden-cell" onclick="window.handleGardenClick(${x}, ${y})" style="aspect-ratio: 1; background: #5d4037; border: 2px solid #3e2723; border-radius: 5px; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; transition: background 0.2s;">
                     ${cell ? cell.icon : ''}
                 </div>
             `).join('')).join('')}
@@ -1151,7 +1153,7 @@ function renderGarden() {
                 <button onclick="state.selectedSeed='${p.id}'; renderGarden();" class="btn" style="${state.selectedSeed === p.id ? 'border: 2px solid #00ff80; background: rgba(0,255,128,0.1)' : ''}">${p.icon} ${p.name}</button>
             `).join('')}
         </div>
-        <p style="font-size: 0.8rem; margin-top: 10px; color: #aaa;">Select a seed and click an empty plot to plant. Plants provide <b>passive bonuses</b> while in the soil!</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; color: #aaa;">Select a seed and click an empty plot to plant. Harvest mature plants for massive revenue and new seeds!</p>
     `;
 }
 
@@ -1185,14 +1187,14 @@ function renderPantheon() {
     const content = document.getElementById('minigame-content');
     content.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <p>Swaps: <b>${state.pantheon.swaps}/3</b></p>
-            <button onclick="useGoldenBiscuit('swaps')" class="btn" style="background: gold; color: black; font-weight: bold;">Refill (${state.goldenBiscuits} 🦴)</button>
+            <p title="Regenerates 1 swap per hour">Swaps: <b>${state.pantheon.swaps}/3</b></p>
+            <button onclick="window.useGoldenBiscuit('swaps')" class="btn" style="background: gold; color: black; font-weight: bold;">Refill (${state.goldenBiscuits} 🦴)</button>
         </div>
         <div class="pantheon-slots" style="display: flex; gap: 20px; justify-content: center; margin-bottom: 25px; margin-top: 15px;">
             ${['💎 Diamond', '🛑 Ruby', '🟢 Jade'].map((name, i) => `
                 <div class="slot" style="width: 100px; height: 130px; border: 2px dashed rgba(255,255,255,0.2); border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); position: relative;">
                     <div style="font-size: 0.7rem; margin-bottom: 10px; color: #aaa;">${name}</div>
-                    <div id="slot-${i}" style="font-size: 3rem; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); cursor: pointer;" onclick="assignSpirit(${i}, null)">
+                    <div id="slot-${i}" style="font-size: 3rem; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); cursor: pointer;" onclick="window.assignSpirit(${i}, null)">
                         ${state.pantheon.slots[i] ? SPIRITS.find(s => s.id === state.pantheon.slots[i]).icon : '❓'}
                     </div>
                     ${state.pantheon.slots[i] ? `<div style="font-size: 0.6rem; color: #00ff80; margin-top: 5px;">ACTIVE</div>` : ''}
@@ -1201,13 +1203,14 @@ function renderPantheon() {
         </div>
         <div class="spirits-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px;">
             ${SPIRITS.map(s => `
-                <div class="spirit-card glass-panel" style="padding: 12px; text-align: center; cursor: pointer; border: 1px solid ${state.pantheon.slots.includes(s.id) ? '#00ff80' : 'var(--glass-border)'};" onclick="handleSpiritClick('${s.id}')">
+                <div class="spirit-card glass-panel" style="padding: 12px; text-align: center; cursor: pointer; border: 1px solid ${state.pantheon.slots.includes(s.id) ? '#00ff80' : 'var(--glass-border)'};" onclick="window.handleSpiritClick('${s.id}')">
                     <div style="font-size: 2rem; margin-bottom: 5px;">${s.icon}</div>
                     <div style="font-weight: bold; font-size: 0.9rem; margin-bottom: 5px;">${s.name}</div>
                     <div style="font-size: 0.7rem; line-height: 1.2; color: #ccc;">${s.desc}</div>
                 </div>
             `).join('')}
         </div>
+        <p style="font-size: 0.8rem; margin-top: 15px; color: #aaa; text-align: center;">Click a spirit to slot it. Efficiencies: Diamond (100%), Ruby (50%), Jade (25%).</p>
     `;
 }
 
@@ -1274,12 +1277,12 @@ function renderGrimoire() {
     const content = document.getElementById('minigame-content');
     content.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <p>Moppet's Patience (Mana): <b>${Math.floor(state.mana)}/100</b></p>
-            <button onclick="useGoldenBiscuit('mana')" class="btn" style="background: gold; color: black; font-weight: bold;">Refill (${state.goldenBiscuits} 🦴)</button>
+            <p title="Regenerates at 0.5 per second">Moppet's Patience (Mana): <b>${Math.floor(state.mana)}/100</b></p>
+            <button onclick="window.useGoldenBiscuit('mana')" class="btn" style="background: gold; color: black; font-weight: bold;">Refill (${state.goldenBiscuits} 🦴)</button>
         </div>
         <div class="spell-grid">
             ${SPELLS.map(s => `
-                <div class="spell-card ${state.mana < s.cost ? 'locked' : ''}" onclick="castSpell('${s.id}')">
+                <div class="spell-card ${state.mana < s.cost ? 'locked' : ''}" onclick="window.castSpell('${s.id}')">
                     <div class="spell-icon">${s.icon}</div>
                     <div class="spell-name">${s.name}</div>
                     <div class="spell-cost">${s.cost} Mana</div>
